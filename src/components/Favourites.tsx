@@ -16,7 +16,7 @@ const Favourites: React.FC = () => {
   return (
     <Container>
       <Box
-        sx={{
+        style={{
           justifyContent: "center",
           width: "100%",
           display: "flex",

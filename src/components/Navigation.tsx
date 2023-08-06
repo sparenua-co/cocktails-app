@@ -41,11 +41,11 @@ const Navigation: React.FC = () => {
       case "/search":
         return 1;
       case "/favourites":
-        return 2;
+        return 1;  
       default:
-        return false;
+        return false;  
     }
-  };
+  }
 
   return (
     <AppBar position="static">
@@ -81,6 +81,7 @@ const Navigation: React.FC = () => {
             <Tab
               label={
                 <Badge
+                overlap="rectangular" 
                   badgeContent={favouriteCocktails.length}
                   color="secondary"
                 >

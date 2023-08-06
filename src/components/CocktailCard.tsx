@@ -46,6 +46,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
           maxWidth: "100%",
           objectFit: "cover",
           width: "100%",
+          
         }}
         src={cocktail.strDrinkThumb}
         alt={cocktail.strDrink}

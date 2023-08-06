@@ -32,21 +32,22 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-    <Box
-        sx={{
+
+<Box
+        style={{
           justifyContent: "center",
           width: "100%",
           display: "flex",
           margin: "2.0rem 0 2.5rem  0 ",
         }}
       >
-        {" "}
+       
         <SearchInput placeholder="Search" />
         <Button
           variant="contained"
           title="Refresh"
           aria-label="Refresh cocktails"
-          color="secondary"
+          color="primary"
           style={{ padding: '10px 0px 10px 10px', margin:' 0 0 0 10px' }} 
           onClick={() => dispatch(fetchRandomCocktails())}
           startIcon={<RefreshIcon style={{ fontSize: '35px',   }} />}
@@ -55,6 +56,7 @@ const Home: React.FC = () => {
         </Button>
       </Box>
 
+ 
       <Grid container spacing={3} justifyContent="center">
         {loading ? (
           <CircularProgress style={{ textAlign: "center" }} />

@@ -30,8 +30,8 @@ const Search: React.FC = () => {
   return (
     <Container>
       <Box
-        sx={{
-          justifyContent: "center",
+   style={{  
+            justifyContent: "center",
           width: "100%",
           display: "flex",
           margin: "2.0rem 0 2.5rem  0 ",

@@ -1,6 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchRandomCocktails } from '../actions/cocktailsActions';  
-
+import { fetchRandomCocktails } from '../actions/cocktailsActions';
 
 interface Cocktail {
   idDrink: string;
@@ -10,50 +8,82 @@ interface Cocktail {
 }
 
 interface CocktailsState {
-    favouriteCocktails: Cocktail[];
-    randomCocktails: Cocktail[];  
-    loading: boolean;
+  favouriteCocktails: Cocktail[];
+  randomCocktails: Cocktail[];
+  loading: boolean;
+}
+
+const savedFavourites = localStorage.getItem('favouriteCocktails');
+const parsedFavourites = savedFavourites ? JSON.parse(savedFavourites) : [];
+
+const initialState: CocktailsState = {
+  favouriteCocktails: parsedFavourites,
+  randomCocktails: [],
+  loading: false,
+};
+
+// Action Types
+const ADD_FAVOURITE = 'ADD_FAVOURITE';
+const REMOVE_FAVOURITE = 'REMOVE_FAVOURITE';
+const START_LOADING = 'START_LOADING';
+const STOP_LOADING = 'STOP_LOADING';
+
+// Action Creators
+export const addFavourite = (cocktail: Cocktail) => ({
+  type: ADD_FAVOURITE,
+  payload: cocktail,
+});
+
+export const removeFavourite = (idDrink: string) => ({
+  type: REMOVE_FAVOURITE,
+  payload: idDrink,
+});
+
+export const startLoading = () => ({
+  type: START_LOADING,
+});
+
+export const stopLoading = () => ({
+  type: STOP_LOADING,
+});
+
+export const cocktailsReducer = (state = initialState, action: any): CocktailsState => {
+  switch (action.type) {
+    case ADD_FAVOURITE:
+      const addedFavourites = [...state.favouriteCocktails, action.payload];
+      localStorage.setItem('favouriteCocktails', JSON.stringify(addedFavourites)); // add to localStorage
+      return {
+        ...state,
+        favouriteCocktails: addedFavourites,
+      };
+    case REMOVE_FAVOURITE:
+      const remainingFavourites = state.favouriteCocktails.filter(item => item.idDrink !== action.payload);
+      localStorage.setItem('favouriteCocktails', JSON.stringify(remainingFavourites));
+      return {
+        ...state,
+        favouriteCocktails: remainingFavourites,
+      };
+    case START_LOADING:
+    case fetchRandomCocktails.pending.type:
+      return {
+        ...state,
+        loading: true,
+      };
+    case STOP_LOADING:
+    case fetchRandomCocktails.rejected.type:
+      return {
+        ...state,
+        loading: false,
+      };
+    case fetchRandomCocktails.fulfilled.type:
+      return {
+        ...state,
+        loading: false,
+        randomCocktails: action.payload,
+      };
+    default:
+      return state;
   }
-  
-  const initialState: CocktailsState = {
-    favouriteCocktails: [],
-    randomCocktails: [], // Initialize the randomCocktails
-    loading: false,
-  };
+};
 
-const cocktailsSlice = createSlice({
-  name: 'cocktails',
-  initialState,
-  reducers: {
-    addFavourite: (state, action: PayloadAction<Cocktail>) => {
-      state.favouriteCocktails.push(action.payload);
-    },
-    removeFavourite: (state, action: PayloadAction<string>) => {
-      state.favouriteCocktails = state.favouriteCocktails.filter(
-        (item) => item.idDrink !== action.payload
-      );
-    },
-     startLoading: (state) => {
-      state.loading = true;
-    },
-    stopLoading: (state) => {
-      state.loading = false;
-    },
-  },
-     extraReducers: (builder) => {
-      builder
-        .addCase(fetchRandomCocktails.pending, (state) => {
-          state.loading = true;
-        })
-        .addCase(fetchRandomCocktails.fulfilled, (state, action) => {
-          state.loading = false;
-          state.randomCocktails = action.payload;
-        })
-        .addCase(fetchRandomCocktails.rejected, (state, action) => {
-          state.loading = false;
-         });
-    },
-  });
-export const { addFavourite, removeFavourite, startLoading, stopLoading } = cocktailsSlice.actions;
-
-export default cocktailsSlice.reducer;
+export default cocktailsReducer;

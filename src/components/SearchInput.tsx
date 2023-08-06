@@ -60,6 +60,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ placeholder, onSearch }) => {
           width: isMobile ? "80px" : "",
         }}
         color="primary"
+        aria-label="Search for cocktails"
         onClick={handleSearch}
       >
         Search

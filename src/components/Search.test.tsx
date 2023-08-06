@@ -9,17 +9,18 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 describe('Search Component', () => {
   it('renders search results correctly', async () => {
     // Create a mock response object
+
     const mockedResponse: AxiosResponse = {
       data: {
         drinks: [
-          { idDrink: '1', strDrink: 'Mock Cocktail 1', strDrinkThumb: 'mock1.jpg', strCategory: 'Mock Category 1' },
-          { idDrink: '2', strDrink: 'Mock Cocktail 2', strDrinkThumb: 'mock2.jpg', strCategory: 'Mock Category 2' },
+          { idDrink: '13072', strDrink: 'Popped cherry', strDrinkThumb: 'sxvrwv1473344825.jpg', strCategory: 'Ordinary Drink' },
+          { idDrink: '12186', strDrink: 'Shanghai Cocktail', strDrinkThumb:'ttyrxr1478820678.jpg', strCategory: 'Ordinary Drink' },
         ],
       },
       status: 200,
       statusText: 'OK',
       config: {
-        headers: {} as any, // Use a type assertion to suppress the error
+        headers: {} as any,  
     },
        headers: {},
     };

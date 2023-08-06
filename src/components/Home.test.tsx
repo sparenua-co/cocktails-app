@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // Mock axios to return a custom response
 jest.mock('axios', () => ({
-  get: jest.fn(() => Promise.resolve({ data: { drinks: [{ idDrink: '1', strDrink: 'Mock Cocktail', strDrinkThumb: 'mock.jpg', strCategory: 'Mock Category' }] } })),
+  get: jest.fn(() => Promise.resolve({ data: { drinks: [{ idDrink: '13072', strDrink: 'Popped cherry', strDrinkThumb: 'sxvrwv1473344825.jpg', strCategory: 'Ordinary Drink' }] } })),
 }));
 
 describe('Home Component', () => {
